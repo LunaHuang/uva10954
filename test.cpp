@@ -2,108 +2,92 @@
 #include <sstream>
 #include <fstream>
 #include "main.cpp"
-/*
-TEST(UVA10008Test, character_filter)
-{
-    EXPECT_EQ("", character_filter(std::to_string(23145)));
-    EXPECT_EQ("WOWISTHISQUESTIONEASY", character_filter(std::string("Wow!!!! Is this question easy?")));
-    EXPECT_EQ("COUNTME", character_filter(std::string("Count me 1 2 3 4 5.")));
-}
 
-TEST(UVA10008Test, solve_uva_problem_1)
-{
-    std::istringstream iss("3\nthat's Asif's book \"The Outsider\".\n"
-                           "\nGo to 29th page.Let's play !!!!   [[((well enough))]]");
+TEST(TestCase1, Solution) {
+  auto Solve = [](std::istream& is) -> std::string {
     std::ostringstream oss;
-    solve_uva_problem(iss, oss);
+    solve_uva_problem(is,oss);
+    return std::string("\n") + oss.str();
+  };
+  {
+    std::stringstream fake_cin;
+    fake_cin << R"(5
+5 4 3 1 2
+0)";
+
     EXPECT_EQ(
-            "T 7\n"
-            "E 6\n"
-            "O 6\n"
-            "S 5\n"
-            "A 4\n"
-            "H 4\n"
-            "L 4\n"
-            "G 3\n"
-            "I 2\n"
-            "P 2\n"
-            "U 2\n"
-            "B 1\n"
-            "D 1\n"
-            "F 1\n"
-            "K 1\n"
-            "N 1\n"
-            "R 1\n"
-            "W 1\n"
-            "Y 1\n",
-            oss.str());
+        R"(
+33
+)",
+Solve(fake_cin));
+  }
 }
 
-TEST(UVA10008Test, solve_uva_problem_2)
-{
-    std::istringstream iss("3\nThis is a test.\nCount me 1 2 3 4 5.\n"
-                           "Wow!!!! Is this question easy?\n");
+TEST(TestCase2, Solution) {
+  auto Solve = [](std::istream& is) -> std::string {
     std::ostringstream oss;
-    solve_uva_problem(iss, oss);
-    EXPECT_EQ("S 7\n"
-              "T 6\n"
-              "I 5\n"
-              "E 4\n"
-              "O 3\n"
-              "A 2\n"
-              "H 2\n"
-              "N 2\n"
-              "U 2\n"
-              "W 2\n"
-              "C 1\n"
-              "M 1\n"
-              "Q 1\n"
-              "Y 1\n",
-              oss.str());
+    solve_uva_problem(is,oss);
+    return std::string("\n") + oss.str();
+  };
+  {
+    std::stringstream fake_cin;
+    fake_cin << R"(3
+6 5 4
+10
+9 5 48 2 4 5 6 3 5 4
+10
+3 4 5 4 7 2 3 8 4 5
+0)";
+
+    EXPECT_EQ(
+        R"(
+24
+224
+147
+)",
+Solve(fake_cin));
+  }
 }
 
-TEST(UVA10008Test, solve_uva_problem_file1)
-{
-    std::ifstream fs("./data/file1");
+TEST(TestCase3, Solution) {
+  auto Solve = [](std::istream& is) -> std::string {
     std::ostringstream oss;
-    solve_uva_problem(fs, oss);
-    EXPECT_EQ("E 115\nT 66\nR 61\nA 56\nN 55\nO 54\nI 52\nS 51\nD 36\nH 33\nM 32\nL 30\nU 25\nY 22\nC 18\nP 17\nF 10\nW 10\nB 8\nG 8\nV 8\nJ 4\nX 4\nK 3\nQ 3\nZ 1\n", oss.str());
+    solve_uva_problem(is,oss);
+    return std::string("\n") + oss.str();
+  };
+  {
+    std::stringstream fake_cin;
+    fake_cin << R"(8
+4 4 6 6 8 8 10 10
+8
+4 6 6 7 7 8 8 9
+8
+3 4 6 6 6 8 8 9
+8
+3 4 5 5 5 5 8 9
+2
+99999 0
+4
+99997 49999 49999 49999
+4
+49999 99998 49999 49999
+0)";
+
+    EXPECT_EQ(
+        R"(
+166
+165
+148
+130
+99999
+499988
+499990
+)",
+Solve(fake_cin));
+  }
 }
 
-TEST(UVA10008Test, solve_uva_problem_file2)
-{
-    std::ifstream fs("./data/file2");
-    std::ostringstream oss;
-    solve_uva_problem(fs, oss);
-    EXPECT_EQ("T 7\nE 6\nO 6\nS 5\nA 4\nH 4\nL 4\nG 3\nI 2\nP 2\nU 2\nB 1\nD 1\nF 1\nK 1\nN 1\nR 1\nW 1\nY 1\n", oss.str());
-}
-
-TEST(UVA10008Test, solve_uva_problem_file3)
-{
-    std::ifstream fs("./data/file3");
-    std::ostringstream oss;
-    solve_uva_problem(fs, oss);
-    EXPECT_EQ("E 62\nT 52\nN 29\nI 27\nS 24\nO 23\nA 21\nR 21\nL 18\nU 16\nP 15\nD 14\nH 14\nC 12\nF 7\nG 6\nM 6\nB 4\nW 4\nY 3\nQ 2\nV 1\nX 1\n", oss.str());
-}
-
-TEST(UVA10008Test, solve_uva_problem_file4)
-{
-    std::ifstream fs("./data/file4");
-    std::ostringstream oss;
-    solve_uva_problem(fs, oss);
-    EXPECT_EQ("S 7\nT 6\nI 5\nE 4\nO 3\nA 2\nH 2\nN 2\nU 2\nW 2\nC 1\nM 1\nQ 1\nY 1\n", oss.str());
-}
-
-TEST(UVA10008Test, solve_uva_problem_file5)
-{
-    std::ifstream fs("./data/file5");
-    std::ostringstream oss;
-    solve_uva_problem(fs, oss);
-    EXPECT_EQ("O 21\nT 17\nA 16\nE 12\nH 12\nR 10\nS 10\nW 9\nY 9\nL 8\nC 7\nD 7\nI 7\nM 6\nP 4\nU 4\nF 3\nK 3\nN 2\nV 2\nG 1\nX 1\n", oss.str());
-}
-
-// test code reference from coldnew
-TEST(UVa10008Test, Solution) {
+TEST(TestCase4, Solution) {
   auto Solve = [](std::istream& is) -> std::string {
 //    testing::internal::CaptureStdout(); can't get stdout display 
     std::ostringstream oss;
@@ -114,30 +98,194 @@ TEST(UVa10008Test, Solution) {
 
   {
     std::stringstream fake_cin;
-    fake_cin << R"(3
-This is a test
-Count me 1 2 3 4 5
-Wow!!!! Is this question easy?)";
+    fake_cin << R"(17
+7 6 60 70 78 44 86 21 7 11 33 44 93 87 68 72 92 
+2
+56 91 
+9
+66 85 52 22 44 1 59 88 67 
+24
+37 61 10 33 17 29 83 74 62 26 93 81 65 35 73 71 45 12 91 44 35 48 69 45 
+24
+36 32 45 70 26 34 89 53 14 40 66 5 23 29 63 90 98 82 28 76 74 87 3 96 
+7
+2 89 33 57 79 58 57 
+2
+52 68 
+18
+9 14 69 36 21 19 16 22 89 25 55 0 54 51 94 12 7 30 
+5
+43 81 7 62 17 
+3
+43 2 40 
+20
+71 27 23 49 93 61 65 51 35 44 14 14 26 32 1 34 98 3 26 25 
+10
+33 15 97 40 45 10 29 29 67 97 
+3
+89 75 76 
+20
+49 37 18 51 40 11 14 82 10 99 4 59 88 78 65 48 15 4 83 87 
+25
+16 28 27 16 2 44 10 38 11 29 18 68 17 87 41 89 52 53 74 96 80 62 92 22 84 
+25
+25 70 82 87 15 46 96 8 82 38 75 6 30 50 98 78 10 92 80 33 94 0 70 45 60 
+25
+51 38 9 30 53 88 31 44 5 13 22 54 37 82 95 38 37 15 95 21 3 14 52 8 20 
+22
+88 25 0 98 11 14 75 33 99 42 89 85 6 51 27 83 95 0 63 33 0 12 
+6
+74 12 15 63 18 95 
+17
+87 51 50 46 55 45 20 2 38 55 25 52 28 98 47 18 25 
+5
+30 51 2 42 24 
+5
+80 64 69 60 86 
+9
+51 3 50 50 13 44 79 42 49 
+16
+6 19 99 22 81 58 48 21 27 24 4 2 17 40 88 75 
+2
+4 8
+17
+48 48 97 96 71 65 87 95 35 88 0 13 28 4 17 42 79 
+8
+90 32 20 48 79 36 55 41 
+21
+42 63 22 87 16 7 97 19 99 3 71 27 87 99 98 23 96 19 7 79 21 
+9
+8 73 48 87 58 84 58 69 78 
+24
+32 29 65 81 70 62 80 1 59 31 65 45 61 81 64 9 39 7 45 42 80 22 82 80 
+11
+14 43 28 14 8 0 13 30 45 3 61 
+8
+3 87 75 1 3 96 87 66 
+10
+79 71 77 41 32 53 8 55 35 39 
+15
+73 12 49 25 64 83 29 70 68 26 75 79 20 36 32 
+13
+16 30 41 61 79 3 56 79 54 38 30 39 72 
+16
+1 53 52 93 55 58 33 74 0 82 32 47 81 34 35 56 
+4
+40 48 55 4 
+19
+79 0 94 67 20 85 65 87 93 77 42 99 87 34 62 90 3 54 3 
+23
+95 30 40 33 2 42 77 61 60 45 44 90 37 38 41 99 5 45 27 76 72 90 31 
+2
+67 53
+17
+56 76 2 43 77 76 55 95 59 21 7 60 65 16 64 63 72 
+12
+59 52 14 22 15 16 24 5 94 30 92 27 
+23
+47 40 84 18 61 43 58 66 46 47 89 4 76 37 68 21 52 5 28 19 84 49 49 
+13
+45 3 22 79 68 72 40 6 15 48 26 7 36 
+7
+76 27 38 91 5 76 31 
+5
+81 1 81 34 87 
+21
+76 9 19 35 99 53 19 11 10 44 67 17 63 93 59 58 60 86 64 22 84 
+7
+86 7 65 99 44 66 2 
+18
+72 2 41 79 96 44 31 37 33 39 66 4 80 5 71 26 18 89 
+15
+33 24 46 16 53 54 13 90 13 72 86 90 50 27 65 
+0)";
 
     EXPECT_EQ(
         R"(
-S 7
-T 6
-I 5
-E 4
-O 3
-A 2
-H 2
-N 2
-U 2
-W 2
-C 1
-M 1
-Q 1
-Y 1
+3349
+147
+1454
+5488
+5479
+992
+120
+2353
+430
+127
+3185
+1418
+391
+3774
+5045
+5984
+4125
+4118
+626
+2893
+324
+842
+1138
+2256
+12
+3470
+1163
+4379
+1745
+5413
+782
+1068
+1584
+2796
+2113
+2983
+283
+4560
+5122
+120
+3536
+1459
+4748
+1572
+884
+603
+4361
+918
+3229
+2709
 )",
 Solve(fake_cin));
   }
 }
 
+TEST(TestCase5, Solution) {
+    auto Solve = []() -> std::string{
+        std::ifstream fs("./case5");
+        std::ostringstream oss;
+        solve_uva_problem(fs,oss);
+        return std::string("\n") + oss.str();
+    };
+  {
+    EXPECT_EQ(
+    R"(
+3034495442
+)",
+Solve());
+  }
+}
+/*
+TEST(TestCase6, Solution) {
+    auto Solve = []() -> std::string{
+        std::ifstream fs("./case6");
+        std::ostringstream oss;
+        solve_uva_problem(fs,oss);
+        return std::string("\n") + oss.str();
+    };
+  {
+    EXPECT_EQ(
+    R"(
+6180738192
+)",
+Solve());
+  }
+}
 */

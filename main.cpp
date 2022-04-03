@@ -36,16 +36,14 @@ unsigned int add_all_function(const std::string &input, int count)
 	const char* delim = " ";
 	std::vector<int> out;
     tokenize(input, delim, out, count);
-	std::sort(out.begin(), out.end(), std::less<int>());
 
 	unsigned int total = 0;
 	unsigned int total_cost = 0;
 	while(out.size() > 1){
-		total = out[0] + out[1];
-//std::cout << out[0] <<" + " << out[1]<< "  cost:" << total << std::endl; 
-		out.push_back(total);
-		out.erase(out.begin(),out.begin()+2);
 		std::sort(out.begin(), out.end(), std::less<int>());
+		total = out[0] + out[1];
+		out.erase(out.begin(),out.begin()+2);
+		out.push_back(total);
 		total_cost = total_cost + total;
     }
     return total_cost;
@@ -56,10 +54,7 @@ void solve_uva_problem(std::istream &is, std::ostream &os)
 	while(1){
 		std::string input;
 		std::getline(is, input);
-		if (input == "0")
-			return;
-
-		if (!is_number(input))
+		if ((input == "0") || !is_number(input))
 			return;
 
 		int amount = std::stoi(input);
